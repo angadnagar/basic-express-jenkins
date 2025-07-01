@@ -27,9 +27,6 @@ pipeline{
             steps {
                 withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
                     sh '''
-                    # install sonar-scanner globally inside pipeline container
-                    npm install -g sonar-scanner
-
                     # run sonar-scanner with required params
                     sonar-scanner \
                         -Dsonar.projectKey=basic-express-jenkins \
