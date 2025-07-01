@@ -20,26 +20,6 @@ pipeline{
 
         }
 
-        stage('Build Push Docker Image'){
-            environment {
-            DOCKER_IMAGE = "angadnagar/jenkins-cicd:${BUILD_NUMBER}"
-            REGISTRY_CREDENTIALS = credentials('docker-cred')
-            }
-
-            steps{
-                script {
-                    sh 'docker build -t ${IMAGE_NAME} .'
-                    
-                    def dockerImage = docker.image("${IMAGE_NAME}")
-                    
-                    docker.withRegistry('https://index.docker.io/v1/', "docker-cred") {
-                        dockerImage.push()
-                    }
-                }
-
-            }
-        }
-
         stage('Static Code Analysis') {
             environment {
                 SONAR_URL = "http://3.95.225.147:9000"
@@ -60,6 +40,28 @@ pipeline{
                 }
             }
         }
+
+        stage('Build Push Docker Image'){
+            environment {
+            DOCKER_IMAGE = "angadnagar/jenkins-cicd:${BUILD_NUMBER}"
+            REGISTRY_CREDENTIALS = credentials('docker-cred')
+            }
+
+            steps{
+                script {
+                    sh 'docker build -t ${IMAGE_NAME} .'
+                    
+                    def dockerImage = docker.image("${IMAGE_NAME}")
+                    
+                    docker.withRegistry('https://index.docker.io/v1/', "docker-cred") {
+                        dockerImage.push()
+                    }
+                }
+
+            }
+        }
+
+        
 
         stage('Update Deployment File') {
             environment {
