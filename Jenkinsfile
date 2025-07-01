@@ -48,7 +48,7 @@ pipeline{
                 script {
                     sh 'docker build -t ${IMAGE_NAME} .'
                     
-                    def dockerImage = docker.image("${IMAGE_NAME}")
+                    def dockerImage = docker.image("${DOCKER_IMAGE}")
                     
                     docker.withRegistry('https://index.docker.io/v1/', "docker-cred") {
                         dockerImage.push()
