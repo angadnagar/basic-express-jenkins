@@ -14,9 +14,15 @@ pipeline{
             }
         }
 
-        stage('Install Dependencies'){
+        stage('Debug'){
             steps{
-                sh 'npm install'
+                 sh '''
+                  echo " Current directory: $(pwd)"
+                  echo " Files:"
+                  ls -la
+                  echo " Checking git status:"
+                  git status
+                '''
             }
 
         }
