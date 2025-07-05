@@ -9,7 +9,7 @@ pipeline{
     stages{
         stage('checkout'){
             steps{
-                git branch: 'main', url: 'https://github.com/angadnagar/basic-express-jenkins.git'
+                git branch: 'main', url: 'https://github.com/angadnagar/express-jenkins.git'
 
             }
         }
@@ -52,7 +52,7 @@ pipeline{
 
         stage('Update Deployment File') {
             environment {
-                GIT_REPO_NAME = "basic-express-jenkins"
+                GIT_REPO_NAME = "express-jenkins"
                 GIT_USER_NAME = "angadnagar"
             }
             steps {
