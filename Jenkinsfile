@@ -17,6 +17,7 @@ pipeline{
         stage('Debug'){
             steps{
                  sh '''
+                  git config --global --add safe.directory /var/lib/jenkins/workspace/jenkins
                   echo " Current directory: $(pwd)"
                   echo " Files:"
                   ls -la
