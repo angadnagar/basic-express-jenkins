@@ -9,7 +9,8 @@ pipeline{
     stages{
         stage('checkout'){
             steps{
-                checkout scm
+                git branch: 'main', url: 'https://github.com/angadnagar/basic-express-jenkins.git'
+
             }
         }
 
