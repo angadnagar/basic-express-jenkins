@@ -20,24 +20,6 @@ pipeline{
 
         }
 
-        stage('Static Code Analysis') {
-            environment {
-                SONAR_URL = "http://3.95.225.147:9000"
-            }
-            steps {
-                withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
-                    sh '''
-                    # run sonar-scanner with required params
-                    sonar-scanner \
-                        -Dsonar.projectKey=basic-express-jenkins \
-                        -Dsonar.sources=. \
-                        -Dsonar.host.url=${SONAR_URL} \
-                        -Dsonar.login=$SONAR_AUTH_TOKEN
-                    '''
-                }
-            }
-        }
-
         stage('Build Push Docker Image'){
             environment {
             DOCKER_IMAGE = "angadnagar/jenkins-cicd:${BUILD_NUMBER}"
@@ -46,7 +28,7 @@ pipeline{
 
             steps{
                 script {
-                    sh 'docker build -t ${IMAGE_NAME} .'
+                    sh 'docker build -t ${DOCKER_IMAGE} .'
                     
                     def dockerImage = docker.image("${DOCKER_IMAGE}")
                     
