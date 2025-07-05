@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: basic-express-app
-        image: angadnagar/jenkins-cicd:7
+        image: angadnagar/jenkins-cicd:replaceImageTag
         ports:
         - containerPort: 3000
